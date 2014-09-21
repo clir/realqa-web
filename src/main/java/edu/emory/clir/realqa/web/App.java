@@ -1,4 +1,4 @@
-package edu.emory.clir;
+package edu.emory.clir.realqa.web;
 
 /**
  * Hello world!

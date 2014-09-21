@@ -1,4 +1,4 @@
-package edu.emory.clir;
+package edu.emory.clir.realqa.web;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
