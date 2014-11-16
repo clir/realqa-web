@@ -1,0 +1,76 @@
+li a{
+	color: black;
+}
+
+body {
+	background: #4fa8ca;
+	font-size: 100%;
+}
+
+
+h1 {
+	font-family: "Calibri", Calibri, sans serif;
+	font-weight: 600;
+	font-size: 3em;
+	color: white;
+	margin-bottom: 170px;
+	text-align: center;
+	
+}
+
+div {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%)
+
+}
+
+#welcome{
+	position: absolute;
+	top: 0;
+	font-style: normal;
+	left: 50%;
+	transform: translate(-50%)
+}
+
+.box {
+	position: relative;
+	padding: 80px;
+	background: #e3e3e3;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+}
+
+form {
+	font-family: "Calibri", Calibri, sans serif;
+	font-weight: 400;
+	font-size: 1.2em;
+	color: #a7a7a7;
+	}
+	
+input {
+	width:350px;
+	height:45px;
+	border: 0px;
+	display: block;
+	font-style: italic;
+	background-color: #f5f5f5;
+	padding: 0 18px;
+}
+
+.button{
+	width: 175px;
+	position: relative;
+	left :0px;
+	top: 2px;
+	background:#f5f5f;
+	color:#a7a7a7;
+	font-family: "Calibri", Calibri, sans serif;
+	font-style: normal;
+	height:45px;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+} 

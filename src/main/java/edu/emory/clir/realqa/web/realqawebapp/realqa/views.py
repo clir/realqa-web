@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
@@ -19,5 +19,3 @@ class DetailView(generic.DetailView):
     template_name = 'realqa/detail.html'
     def get_queryset(self):
         return Question.objects.filter(added_at__lte=timezone.now())
-    
-    

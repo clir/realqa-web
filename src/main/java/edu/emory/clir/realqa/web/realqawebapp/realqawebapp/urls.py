@@ -8,5 +8,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^realqa/', include('realqa.urls', namespace="realqa")),
-    
+   
 )
