@@ -11,7 +11,7 @@ class Question(models.Model):
     added_at = models.DateTimeField(default=datetime.datetime.now)
     score = models.IntegerField(default=0)
     answer_count = models.IntegerField(null=True)
-    "Locations = list of TextField"
+    
     def __str__(self):
         return self.body
     def split_tags(self):
@@ -25,8 +25,5 @@ class Answer(models.Model):
     author = models.CharField(max_length=125)
     added_at = models.DateTimeField(default=datetime.datetime.now)
     score = models.IntegerField(default=0)
-    
-    """question_id = models.IntegerField(null=True)
-    Should we use question_id to determine which answer belongs to which question, or use foreignkey?"""
     def __str__(self):
         return self.body

@@ -1,14 +1,18 @@
 {% extends 'realqa/base.html' %}
 	
-{% block header %}Dashboard{% endblock %}
+{% block header %} Dashboard {% endblock %}
 	
 {% block content %}
 	{% if question_list %}
 		{% for question in question_list %}
 			<div class = "box">
-				<p class="votes"> {{ question.score }}<!-- # of upvotes go here --> </p>
-				<a href="{% url 'realqa:detail' question.id %}">{{ question.body }} </a>
-				<p class="tags"> {% for tag in question.split_tags %} #{{ tag }} {% endfor %} <!-- Question tags go here --> </p>
+				<p class="votes"> {{ question.score }} </p>
+				<a href="{% url 'realqa:detail' question.id %}"> {{ question.body }} </a>
+				<p class="tags"> 
+					{% for tag in question.split_tags %} 
+						#{{ tag }} 
+					{% endfor %} 
+				</p>
 				<p class="date"> {{ question.answer_set.count }} answers | {{ question.added_at }} </p>
 			</div>
 		{% endfor %}

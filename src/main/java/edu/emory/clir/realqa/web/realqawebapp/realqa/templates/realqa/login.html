@@ -34,11 +34,10 @@
 					<p> Your username and password didn't match. Please try again. </p>
 				{% endif %}
 				<div class = "box">
-					<form method="post" action="realqa/login/">
-						{% csrf_token %}
+					<form method="post" action="http://realqa.mathcs.emory.edu/api-token-auth/">
 						<p id="welcome">Welcome to QA!</p>
-						<input type="text" name="username" value="{{ username}}" placeholder="Username"/><br />
-						<input type="password" name="password" value="" placeholder="Password"/><br />
+						<input type="text" name="username" value = "{{ username }}" placeholder="Username"/><br />
+						<input type="text" name="password" value = "{{ password }}" placeholder="Password"/><br />
 		
 						<input type="hidden" name="next" value="{{ next }}" />
 						<input type="submit" value="Sign in" class="button"/>
