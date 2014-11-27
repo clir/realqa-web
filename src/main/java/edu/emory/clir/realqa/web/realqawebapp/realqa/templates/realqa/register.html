@@ -44,9 +44,12 @@
 					<form method="post" action="http://realqa.mathcs.emory.edu/users/">
 						{% csrf_token %}
 						<p id="welcome"> Register for RealQA: </p>
-						{{ user_form.as_p }}
+						{{ user_form.username }}
+						<br>
+						{{ user_form.password }}
+						<br>
 						<input type="hidden" name="next" value="{{ next }}" />
-						<input type="submit" value="Create account" name="button1" class="button"/>
+						<input type="submit" value="Create account" id="button2" class="button"/>
 					</form>
 				{% endif %}
 			</div>

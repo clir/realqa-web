@@ -32,6 +32,13 @@ h2 {
 	margin-top: 20px;
 }
 
+form {
+	color: #a7a7a7;
+	font-family: "Calibri", Calibri, sans serif;	
+	font-size: 1.2em;
+	font-weight: 400;
+	}
+
 .box {
 	background: white;
 	border-color: #cecece;
@@ -86,6 +93,23 @@ p.votes {
 	top: 0;
 }
 
+.askbar input{
+	background-color: white;
+	border: 0px;
+	bottom: 0;
+	display: block;
+	font-style: italic;
+	height:45px;
+	left: 260px;
+	margin: auto;
+	-moz-border-radius: 12px;
+	padding: 0 18px;
+	position: absolute;
+	top: 0;
+	-webkit-border-radius: 12px;
+	width: 50%;
+}
+
 #container {
 	margin-left: 240px;
 	width: 80%;
@@ -107,17 +131,15 @@ p.votes {
 }
 
 #home {
-	float: right;
-	right: 300px;
+	right: 100px;
 }
 
 #mail {
-	float: right;
-	right: 360px;
+	right: 170px;
 }
+
 #gear {
-	float: right;
-	right: 240px;
+	right: 30px;
 }
 
 a:link {

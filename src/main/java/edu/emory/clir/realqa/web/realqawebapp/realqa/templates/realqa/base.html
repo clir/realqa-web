@@ -31,6 +31,12 @@
 		
 		<div class="askbar">
 			<img src="{% static 'realqa/images/logo-q.png' %}" id="logo" alt="Logo" style="width:45px; height:45px"> 
+			
+			<form method = "post">
+				{% csrf_token %}
+				<input type="text" name="ask" id="ask" class="text" placeholder="Ask a question here..." /><br />
+			</form>
+			
 			<a href="{% url 'realqa:index' %}"> <img src="{% static 'realqa/images/house.png' %}" id="home" alt="Home" style="width:43px; height:40px"> </a>
 			<a href="{% url 'realqa:inbox' %}"> <img src="{% static 'realqa/images/message.png' %}" id="mail" alt="Messages" style="width:45px; height:34px"> </a>
 			<a href="{% url 'realqa:profile' %}"><img src="{% static 'realqa/images/setting.png' %}" id="gear" alt="Settings" style="width:45px; height:44px"> </a>
