@@ -7,60 +7,125 @@ body {
 	font-size: 100%;
 }
 
-#askbar {
+hr {
+	background: #cecece;
+	border: 0;
+	color: #cecece;
+	height: 2px;
+	margin-top: 2px;
+	padding: 0px;	
+}
+h1 {
+	color: #7a7a7a;
+	font-family: "Georgia", Georgia, serif;
+	font-size: 2.5em;
+	font-weight: 400;
+	margin-bottom: 8px;
+}
+
+h2 {
+	color: #7a7a7a;
+	font-family: "Calibri", Calibri, sans serif;
+	font-size: 1.5em;
+	font-weight: 400;
+	margin-bottom: 5px;
+	margin-top: 20px;
+}
+
+.box {
+	background: white;
+	border-color: #cecece;
+	border-style: solid;
+	border-width: 1px;
+	margin-bottom: 25px;
+	padding: 20px;
+	position: relative;
+}
+
+p.date {
+	color: #a5a5a5;
+	text-align: right;
+	font-family: "Calibri", Calibri, sans serif;
+	font-weight: 400;
+	margin-bottom: 0px;
+	margin-top: 10px;
+	font-size: 1em;
+}
+
+p.tags {
+	color: #a5a5a5;
+	font-family: "Calibri", Calibri, sans serif;
+	font-size: 1.2em;
+	font-weight: 400;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	text-align: left;
+}
+
+p.votes {
+	color: #a5a5a5;
+	float: left;
+	font-family: "Calibri", Calibri, sans serif;
+	font-size: 1.3em;
+	font-weight: 400;
+	margin-right: 10px;
+	text-align: left;
+}
+
+.askbar {
+	background: #4fa8ca;
 	border: 0;
 	height: 55px;
-	background: #4fa8ca;
+	position: relative;
+}
+
+.askbar img {
+	bottom: 0;
+	margin: auto;
+	position: absolute;
+	top: 0;
 }
 
 #container {
-	width: 80%;
 	margin-left: 240px;
+	width: 80%;
 }
 
 #header {
-	width: 100%;
 	float: left;
-}
-
-hr {
-	border: 0;
-	height: 2px;
-	color: #cecece;
-	background: #cecece;
-	padding: 0px;
-	margin-top: 2px;
-}
-h1 {
-	font-family: "Georgia", Georgia, serif;
-	font-weight: 400;
-	font-size: 2.5em;
-	color: #7a7a7a;
-	margin-bottom: 8px;
+	width: 100%;
 }
 
 #content {
 	float: left;
-	width: 100%;
 	padding: 10px 0px;
+	width: 100%;
 }
 
-.box {
-	position: relative;
-	border-style: solid;
-	border-width: 1px;
-	border-color: #cecece;
-	padding: 20px;
-	background: white;
-	margin-bottom: 25px;
+#logo {
+	left: 200px;
+}
+
+#home {
+	float: right;
+	right: 300px;
+}
+
+#mail {
+	float: right;
+	right: 360px;
+}
+#gear {
+	float: right;
+	right: 240px;
 }
 
 a:link {
 	color: black;
-	text-decoration: none;
 	font-family: "Calibri", Calibri, sans serif;
-	font-weight: 600;
 	font-size: 1.3em;
+	font-weight: 600;
+	text-decoration: none;
 }
 
 a:visited {
@@ -74,43 +139,3 @@ a:hover {
 a:active {
 	color: black;
 }
-
-p.date {
-	text-align: right;
-	font-family: "Calibri", Calibri, sans serif;
-	font-weight: 400;
-	font-size: 1em;
-	color: #a5a5a5;
-	margin-top: 10px;
-	margin-bottom: 0px;
-}
-
-p.tags {
-	text-align: left;
-	font-family: "Calibri", Calibri, sans serif;
-	font-weight: 400;
-	font-size: 1.2em;
-	color: #a5a5a5;
-	margin-top: 0px;
-	margin-bottom: 0px;
-}
-
-h2 {
-	font-family: "Calibri", Calibri, sans serif;
-	font-weight: 400;
-	font-size: 1.5em;
-	color: #7a7a7a;
-	margin-top: 20px;
-	margin-bottom: 5px;
-}
-
-p.votes {
-	float: left;
-	text-align: left;
-	font-family: "Calibri", Calibri, sans serif;
-	font-weight: 400;
-	font-size: 1.3em;
-	color: #a5a5a5;
-	margin-right: 10px;
-}
-

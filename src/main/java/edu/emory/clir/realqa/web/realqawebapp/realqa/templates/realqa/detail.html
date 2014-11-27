@@ -8,6 +8,7 @@
 	<h2> {{ question.answer_count }} Answers </h2>
 {% endblock %}
 
+<!-- Displays all answers to a particular question -->
 {% block content %}
 	{% if error_message %} <p><strong> {{ error_message }} </strong></p> {% endif %}
 		{% csrf_token %}

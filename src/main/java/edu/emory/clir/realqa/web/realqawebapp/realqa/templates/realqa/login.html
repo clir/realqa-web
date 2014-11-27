@@ -9,12 +9,15 @@
 		<meta charset="utf=8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		
 		<title>RealQA</title>
+		
 		<meta name="description" content="Welcome to RealQA! A site where you can ask questions to your peers, and answer them.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="js/vendor/modernizr-2.6.2.min.js"></script>
 		
 		{% load staticfiles %}
+		
 		<link rel="stylesheet" type="text/css" href="{% static 'realqa/css/normalize.css' %}" />
 		<link rel="stylesheet" type="text/css" href="{% static 'realqa/css/login.css' %}" />
 		<link rel="shortcut icon" type="image/x-icon" href="{% static 'realqa/images/favicon.ico' %}" />
@@ -30,39 +33,41 @@
 			<h1>
 				RealQA
 			</h1>
-				{% if form.errors %}
-					<p> Your username and password didn't match. Please try again. </p>
-				{% endif %}
-				<div class = "box">
-					<form method="post">
-						{% csrf_token %}
-						<p id="welcome">Welcome to QA!</p>
-
-						<input type="text" name="username" id="username" class="text" placeholder="Username" size="30"/><br />
-						<input type="password" name="password" id="password" class="text" placeholder="Password"/><br />
-						<input type="hidden" name="next" value="{{ next }}" />
-						<input type="submit" value="Sign in" name="button1" class="button"/>
-					</form>
-					
-					<form action="{% url 'realqa:register' %}">
-							<input type="submit" value="Sign up" class="button"/>
-					</form>
+			
+			{% if form.errors %}
+				<p> Your username and password didn't match. Please try again. </p>
+			{% endif %}
+			
+			<!-- Submit username and password to the server -->
+			<div class = "box">
+				<form method="post">
+					{% csrf_token %}
+					<p id="welcome">Welcome to QA!</p>
+					<input type="text" name="username" id="username" class="text" placeholder="Username" size="30"/><br />
+					<input type="password" name="password" id="password" class="text" placeholder="Password"/><br />
+					<input type="hidden" name="next" value="{{ next }}" />
+					<input type="submit" value="Sign in" name="button1" class="button"/>
+				</form>
+				
+				<!-- Redirects user to the registration page -->
+				<form action="{% url 'realqa:register' %}">
+					<input type="submit" value="Sign up" class="button"/>
+				</form>
 				
 				<!-- Translates username and password to JSON -->
 				<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+				
 				<script>
-					 $(document).ready(function () {
+					$(document).ready(function () {
 						$("#button1").click(function () {
-							var userName = $("#username").val();
+							var username = $("#username").val();
 							var password = $("#password").val();
-
-							authenticate(userName, password);
+							authenticate(username, password);
 						});
 					});
 					
-					function authenticate(userName, password) {
-						$.ajax
-						({
+					function authenticate(username, password) {
+						$.ajax ({
 							type: "POST",
 							url: "http://realqa.mathcs.emory.edu/api-token-auth/",
 							dataType: 'json',
@@ -73,11 +78,11 @@
 								console.log(data);
 								console.log(textStatus);
 								console.log(jqXHR);
-								}
+							}
 						})
 					}
 				</script>
-				</div>
+			</div>
 		</div>
 	</body>
 </html>

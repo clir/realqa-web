@@ -9,12 +9,15 @@
 		<meta charset="utf=8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		
 		<title>RealQA</title>
+		
 		<meta name="description" content="Welcome to RealQA! A site where you can ask questions to your peers, and answer them.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="js/vendor/modernizr-2.6.2.min.js"></script>
 		
 		{% load staticfiles %}
+		
 		<link rel="stylesheet" type="text/css" href="{% static 'realqa/css/normalize.css' %}" />
 		<link rel="stylesheet" type="text/css" href="{% static 'realqa/css/login.css' %}" />
 		<link rel="shortcut icon" type="image/x-icon" href="{% static 'realqa/images/favicon.ico' %}" />
@@ -30,11 +33,14 @@
 			<h1>
 				RealQA
 			</h1>
-				<div class = "box">
-					{% if registered %} 
-						Thank you for registering!
-						 <a href="/realqa/">Return to the homepage.</a><br />
-					{% else %}
+			
+			<div class = "box">
+				{% if registered %} 
+					Thank you for registering!
+					<a href="/realqa/">Return to the homepage.</a><br />
+				
+				<!-- If not registered, let user submit username and password to register -->
+				{% else %}
 					<form method="post" action="http://realqa.mathcs.emory.edu/users/">
 						{% csrf_token %}
 						<p id="welcome"> Register for RealQA: </p>
@@ -42,9 +48,8 @@
 						<input type="hidden" name="next" value="{{ next }}" />
 						<input type="submit" value="Create account" name="button1" class="button"/>
 					</form>
-					{% endif %}
-				
-				</div>
+				{% endif %}
+			</div>
 		</div>
 	</body>
 </html>

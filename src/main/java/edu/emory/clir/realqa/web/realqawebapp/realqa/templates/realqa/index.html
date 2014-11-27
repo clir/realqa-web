@@ -1,13 +1,16 @@
 {% extends 'realqa/base.html' %}
 	
 {% block header %} Dashboard {% endblock %}
-	
+
+<!-- Lists all the questions -->
 {% block content %}
 	{% if question_list %}
 		{% for question in question_list %}
 			<div class = "box">
 				<p class="votes"> {{ question.score }} </p>
 				<a href="{% url 'realqa:detail' question.id %}"> {{ question.body }} </a>
+				
+				<!-- Splits the comma separated tags into separate tags with # at the front of each -->
 				<p class="tags"> 
 					{% for tag in question.split_tags %} 
 						#{{ tag }} 
