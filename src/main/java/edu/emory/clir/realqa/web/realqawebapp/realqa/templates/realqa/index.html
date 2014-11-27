@@ -16,6 +16,7 @@
 				<p class="date"> {{ question.answer_set.count }} answers | {{ question.added_at }} </p>
 			</div>
 		{% endfor %}
+		
 		{% else %}
 		<p>No questions are available.</p>
 	{% endif %}

@@ -73,4 +73,6 @@ input {
 	-webkit-border-radius: 12px;
 	-moz-border-radius: 12px;
 	border-radius: 12px;
+	float: left;
+	margin-right: 15px;
 } 

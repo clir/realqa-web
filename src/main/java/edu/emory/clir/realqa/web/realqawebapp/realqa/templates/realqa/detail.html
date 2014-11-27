@@ -1,6 +1,6 @@
 {% extends "realqa/base.html" %}
 
-{% block header %}{{ question.body }}{% endblock %}
+{% block header %} {{ question.body }} {% endblock %}
 
 {% block details %}
 	<p class="tags"> {% for tag in question.split_tags %} #{{ tag }} {% endfor %} </p>
@@ -9,14 +9,13 @@
 {% endblock %}
 
 {% block content %}
-	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+	{% if error_message %} <p><strong> {{ error_message }} </strong></p> {% endif %}
 		{% csrf_token %}
 		{% for answer in question.answer_set.all %}
 			<div class="box">
-				<label for="answer{{ forloop.counter }}">{{ answer.body }}</label><br />
+				<label for="answer{{ forloop.counter }}"> {{ answer.body }} </label><br />
 				<p class="date"> answered by {{ answer.author }} | {{ answer.added_at }} </p>
 				<p class="tags"> {{ answer.score }} votes </p>
 			</div>
 		{% endfor %}
-	
 {% endblock %}
