@@ -31,48 +31,7 @@ class DetailView(generic.DetailView):
     def get_queryset(self):
         return Question.objects.filter(added_at__lte=timezone.now())
 		
-		
-# View for registration, takes in username and password in the form and POSTS it to server.
-def register(request):
-	context = RequestContext(request)
-	registered = False 
-	if request.method == 'POST':
-		user_form = UserForm(data=request.POST)
-		if user_form.is_valid():
-			user = user_form.save()
-			user.set_password(user.password)
-			user.save()
-			registered = True
-		else:
-			print user_form.errors
-	else:
-		user_form = UserForm()
-	return render_to_response(
-		'realqa/register.html',
-		{'user_form': user_form, 'registered': registered}, context
-		)
 
-		
-# View for login, post username and password to server, server will return a token.
-def login(request):
-    context = RequestContext(request)
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect('/realqa/')
-            else:
-                return HttpResponse("Invalid login")
-        else:
-            print "Invalid login details: {0}, {1}".format(username, password)
-            return HttpResponse("Invalid login details supplied.")
-    else:
-        return render_to_response('realqa/login.html', {}, context)
-		
-		
 # Logout only possible when user is already logged in, redirects to a page telling user they have been logged out.
 @login_required
 def user_logout(request):

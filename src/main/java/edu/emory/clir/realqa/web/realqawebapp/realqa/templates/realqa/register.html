@@ -15,6 +15,24 @@
 		<meta name="description" content="Welcome to RealQA! A site where you can ask questions to your peers, and answer them.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="js/vendor/modernizr-2.6.2.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script type="text/javascript">
+		$(function() {
+			$('input[name="button2"]').click(function() {
+				var formdata = JSON.stringify($("#registerform").serializeArray());
+				$.ajax({
+					type: 'POST',
+					contentType: 'application/json',
+					url: "http://realqa.mathcs.emory.edu/users/",
+					dataType: "json",
+					data: formdata,
+					success: function(data) {
+						console.log(data);
+					};
+				});
+			});
+		});
+		</script>
 		
 		{% load staticfiles %}
 		
@@ -41,17 +59,16 @@
 				
 				<!-- If not registered, let user submit username and password to register -->
 				{% else %}
-					<form method="post" action="http://realqa.mathcs.emory.edu/users/">
+					<form method="post" name="registerform" action="http://realqa.mathcs.emory.edu/users/">
 						{% csrf_token %}
 						<p id="welcome"> Register for RealQA: </p>
-						{{ user_form.username }}
-						<br>
-						{{ user_form.password }}
-						<br>
+						<input type="text" name="username" id="username" class="text" placeholder="Username" size="30"/><br />
+						<input type="password" name="password" id="password" class="text" placeholder="Password"/><br />
 						<input type="hidden" name="next" value="{{ next }}" />
 						<input type="submit" value="Create account" id="button2" class="button"/>
 					</form>
 				{% endif %}
+				
 			</div>
 		</div>
 	</body>

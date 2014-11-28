@@ -12,6 +12,13 @@
 {% block content %}
 	{% if error_message %} <p><strong> {{ error_message }} </strong></p> {% endif %}
 		{% csrf_token %}
+		<div class="box">
+			<form method="post" action="http://realqa.mathcs.emory.edu/questions/question.id/answers/">
+				<textarea name="answer" rows="5" cols="120" placeholder="Type your response here..." /></textarea> <
+				<input type="submit" value="Post" class="button"/>
+			</form>
+		</div>
+		
 		{% for answer in question.answer_set.all %}
 			<div class="box">
 				<label for="answer{{ forloop.counter }}"> {{ answer.body }} </label><br />

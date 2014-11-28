@@ -15,7 +15,25 @@
 		<meta name="description" content="Welcome to RealQA! A site where you can ask questions to your peers, and answer them.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="js/vendor/modernizr-2.6.2.min.js"></script>
-		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script type="text/javascript">
+		$(function() {
+			$('input[name="button1"]').click(function() {
+				var formdata = JSON.stringify($("#myForm").serializeArray());
+				$.ajax({
+					type: 'POST',
+					contentType: 'application/json',
+					url: "http://realqa.mathcs.emory.edu/api-token-auth/",
+					dataType: "json",
+					data: formdata,
+					success: function(data) {
+						console.log(data);
+					};
+				});
+			});
+		});
+		</script>
+				
 		{% load staticfiles %}
 		
 		<link rel="stylesheet" type="text/css" href="{% static 'realqa/css/normalize.css' %}" />
@@ -40,48 +58,19 @@
 			
 			<!-- Submit username and password to the server -->
 			<div class = "box">
-				<form method="post">
+				<form method="post" name="myForm" action="http://realqa.mathcs.emory.edu/api-token-auth/">
 					{% csrf_token %}
 					<p id="welcome">Welcome to QA!</p>
 					<input type="text" name="username" id="username" class="text" placeholder="Username" size="30"/><br />
 					<input type="password" name="password" id="password" class="text" placeholder="Password"/><br />
 					<input type="hidden" name="next" value="{{ next }}" />
-					<input type="submit" value="Sign in" name="button1" class="button"/>
+					<input type="submit" value="Sign in" name="button1" id="button1" class="button"/>
 				</form>
 				
 				<!-- Redirects user to the registration page -->
 				<form action="{% url 'realqa:register' %}">
 					<input type="submit" value="Sign up" class="button"/>
 				</form>
-				
-				<!-- Translates username and password to JSON -->
-				<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-				
-				<script>
-					$(document).ready(function () {
-						$("#button1").click(function () {
-							var username = $("#username").val();
-							var password = $("#password").val();
-							authenticate(username, password);
-						});
-					});
-					
-					function authenticate(username, password) {
-						$.ajax ({
-							type: "POST",
-							url: "http://realqa.mathcs.emory.edu/api-token-auth/",
-							dataType: 'json',
-							async: false,
-							data: '{"userName": "' + userName + '", "password" : "' + password + '"}', 
-							
-							success: function (data, textStatus, jqXHR) {
-								console.log(data);
-								console.log(textStatus);
-								console.log(jqXHR);
-							}
-						})
-					}
-				</script>
 			</div>
 		</div>
 	</body>
