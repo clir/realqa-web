@@ -1,35 +1,58 @@
 {% extends 'realqa/base.html' %}
 
+<script type="text/javascript">
+	window.onload = function() {
+		var question;
+		$.getJSON( "http://realqa.mathcs.emory.edu/questions/", function(result) {
+			$.each(result, function(i, field){
+			$("div").append(field + "");
+			});
+		})
+	};
+</script>
+
 {% block header %} Dashboard {% endblock %}
 
 <!-- Lists all the questions -->
 {% block content %}
-
-	<script type="text/javascript">
-		window.onload = function() {
-			var question;
-			$.getJSON( "http://realqa.mathcs.emory.edu/questions/", function(result) {
-				$.each(result, function(i, field){
-				$("div").append(field + "");
-				});
-			})
-			
-		};
-	</script>
+	<nav>
+	<ul>
+		<li>Sort By:
+			<ul>
+				<li><a href="#">Freshness</a></li>
+				<li><a href="#">Relevance</a></li>
+				<li><a href="#">Answer Count</a></li>
+				<li><a href="#">Location</a></li>
+				<li><a href="#">Popularity</a></li>
+			</ul>
+		</li>
+	</ul>
+	</nav>
 	
 	{% if question_list %}
 		{% for question in question_list %}
-			<div class = "box">
+			<div class="box">
 				<p class="votes"> {{ question.score }} </p>
-				<a href="{% url 'realqa:detail' question.id %}"> {{ question.body }} </a>
 				
-				<!-- Splits the comma separated tags into separate tags with # at the front of each -->
-				<p class="tags"> 
-					{% for tag in question.split_tags %} 
-						#{{ tag }} 
-					{% endfor %} 
-				</p>
-				<p class="date"> {{ question.answer_set.count }} answers | {{ question.added_at }} </p>
+				<form name="votes" method="post">
+					{% load staticfiles %}
+					{% csrf_token %}
+					<input type="image" src="{% static 'realqa/images/upvote.png' %}"/>
+					<input type="image" src="{% static 'realqa/images/downvote.png' %}" style="top:70px" id="downvote"/>
+				</form>
+				
+				<div class="body">
+					<a href="{% url 'realqa:detail' question.id %}" id="question_body"> {{ question.body }} </a>
+				
+					<!-- Splits the comma separated tags into separate tags with # at the front of each -->
+					<p class="tags"> 
+						{% for tag in question.split_tags %} 
+							<a href="#">#{{ tag }}</a>
+						{% endfor %} 
+					</p>
+					
+					<p class="date"> {{ question.answer_set.count }} answers | {{ question.added_at }} </p>
+				</div>
 			</div>
 		{% endfor %}
 		

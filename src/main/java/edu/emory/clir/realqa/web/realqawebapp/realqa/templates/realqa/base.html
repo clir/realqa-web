@@ -11,7 +11,7 @@
 			{% load staticfiles %}
 			<img src="{% static 'realqa/images/logo-q.png' %}" style="width:45px; height:45px; left:200px;"> 
 			
-			<form method = "post">
+			<form method="post" id="ask_form">
 				{% csrf_token %}
 				<input type="text" name="ask" id="ask" class="text" placeholder="Ask a question here..." />
 				<input type="submit" value="Post" name="submit" id="submit" class="button" />
