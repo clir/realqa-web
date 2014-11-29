@@ -1,25 +1,10 @@
-<!DOCTYPE html> 
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+{% extends "realqa/base0.html" %}
 
-<html lang="en">
-	<head>
-		<meta charset="utf=8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		
-		<title>RealQA</title>
-		
-		<meta name="description" content="Welcome to RealQA! A site where you can ask questions to your peers, and answer them.">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-		<script src="js/vendor/modernizr-2.6.2.min.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script type="text/javascript">
+{% block scripts %}
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
 		$(function() {
-			$('input[name="button2"]').click(function() {
-				var formdata = JSON.stringify($("#registerform").serializeArray());
+			$('input[name="create_account"]').click(function() {
+				var formdata = JSON.stringify($("#register").serializeArray());
 				$.ajax({
 					type: 'POST',
 					contentType: 'application/json',
@@ -32,44 +17,38 @@
 				});
 			});
 		});
-		</script>
+	</script>
+{% endblock %}
 		
-		{% load staticfiles %}
-		
-		<link rel="stylesheet" type="text/css" href="{% static 'realqa/css/normalize.css' %}" />
-		<link rel="stylesheet" type="text/css" href="{% static 'realqa/css/login.css' %}" />
-		<link rel="shortcut icon" type="image/x-icon" href="{% static 'realqa/images/favicon.ico' %}" />
-		<link rel="apple-touch-icon-precomposed" href="{% static 'realqa/images/apple-touch-icon-precomposed.png' %}" />
-	</head>
-	
-	<body>
-		<!--[if lt IE 7]>
-				<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-			<![endif]-->
-	
-		<div>
-			<h1>
-				RealQA
-			</h1>
+{% block static %}
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'realqa/css/login.css' %}" />
+{% endblock %}
+
+{% block body %}
+	<div>
+		<h1>
+			RealQA
+		</h1>
 			
-			<div class = "box">
-				{% if registered %} 
-					Thank you for registering!
-					<a href="/realqa/">Return to the homepage.</a><br />
+		<div class="form">
+			{% if registered %} 
+				Thank you for registering!
+				<a href="/realqa/"> Return to the homepage. </a><br />
 				
-				<!-- If not registered, let user submit username and password to register -->
-				{% else %}
-					<form method="post" name="registerform" action="http://realqa.mathcs.emory.edu/users/">
-						{% csrf_token %}
-						<p id="welcome"> Register for RealQA: </p>
-						<input type="text" name="username" id="username" class="text" placeholder="Username" size="30"/><br />
-						<input type="password" name="password" id="password" class="text" placeholder="Password"/><br />
-						<input type="hidden" name="next" value="{{ next }}" />
-						<input type="submit" value="Create account" id="button2" class="button"/>
-					</form>
-				{% endif %}
-				
-			</div>
+			<!-- If not registered, let user submit username and password to register -->
+			{% else %}
+				<form method="post" name="register" id="register" action="http://realqa.mathcs.emory.edu/users/">
+					{% csrf_token %}
+					<p id="welcome"> Register for RealQA: </p>
+					<input type="text" name="username" id="username" class="text" placeholder="Username" size="30" title="Required. 30 characters or fewer. Letters, numbers and @/./+/-/_ characters"/>
+					<br />
+					<input type="password" name="password" id="password" class="text" placeholder="Password"/>
+					<br />
+					<input type="hidden" name="next" value="{{ next }}"/>
+					<input type="submit" value="Create account" id="create_account" class="button"/>
+				</form>
+			{% endif %}
 		</div>
-	</body>
-</html>
+	</div>
+{% endblock %}

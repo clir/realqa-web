@@ -20,8 +20,8 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         """Return the last 10 published questions."""
         return Question.objects.order_by('-added_at')[:10]
-    
-	
+		
+		
 # View for when you click on a question, can view all the answers.	
 class DetailView(generic.DetailView):
     model = Question
@@ -37,4 +37,5 @@ class DetailView(generic.DetailView):
 def user_logout(request):
 	logout(request)
 	return HttpResponseRedirect('/realqa/logout/')
+	
 	

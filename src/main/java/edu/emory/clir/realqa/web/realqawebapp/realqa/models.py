@@ -18,12 +18,14 @@ class Question(models.Model):
         """Splits the tagnames when they are separated by comma"""
         return self.tagnames.split(',')
         
-    
+		
 class Answer(models.Model):
     question = models.ForeignKey(Question)
     body = models.TextField()
     author = models.CharField(max_length=125)
     added_at = models.DateTimeField(default=datetime.datetime.now)
     score = models.IntegerField(default=0)
+	
     def __str__(self):
         return self.body
+		

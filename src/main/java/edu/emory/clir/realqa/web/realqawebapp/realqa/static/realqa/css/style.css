@@ -1,10 +1,90 @@
-li a{
-	color: black;
-}
-
 body {
 	background: #e3e3e3;
 	font-size: 100%;
+}
+
+.outer {
+	overflow: auto;
+	height: 100vh;
+}
+
+.askbar {
+	background: #4fa8ca;
+	border: 0;
+	height: 55px;
+	min-width: 1000px;
+	position: relative;
+	width: 100%;
+	overflow: visible;
+}
+
+.askbar img {
+	bottom: 0;
+	margin: auto;
+	padding: 10px;
+	position: absolute;
+	top: 0;
+}
+
+form {
+	color: #a7a7a7;
+	font-family: "Calibri", Calibri, sans serif;	
+	font-size: 1em;
+	height: 100%;
+	width: 100%;
+	display: in-line-block;
+}
+	
+#ask{
+	background-color: white;
+	border: 0px;
+	bottom: 0px;
+	top: 0px;
+	left: 260px;
+	display: block;
+	font-style: italic;
+	height: 45px;
+	width: 45%;
+	margin: auto;
+	padding: 0 18px;
+	position: absolute;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+}
+
+.button {
+	background: white;
+	border: 0px;
+	color:#4fa8ca;
+	font-family: "Calibri", Calibri, sans serif;
+	font-style: normal;
+	height: 45px;
+	width: 60px;
+	bottom: 0px;
+	top: 0px;
+	margin: auto;
+	position: absolute;
+	border-radius: 12px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+}
+
+#container {
+	margin-left: 240px;
+	width: 80%;
+}
+
+#header {
+	float: left;
+	width: 100%;
+}
+
+h1 {
+	color: #7a7a7a;
+	font-family: "Georgia", Georgia, serif;
+	font-size: 2.5em;
+	font-weight: 400;
+	margin-bottom: 8px;
 }
 
 hr {
@@ -14,13 +94,6 @@ hr {
 	height: 2px;
 	margin-top: 2px;
 	padding: 0px;	
-}
-h1 {
-	color: #7a7a7a;
-	font-family: "Georgia", Georgia, serif;
-	font-size: 2.5em;
-	font-weight: 400;
-	margin-bottom: 8px;
 }
 
 h2 {
@@ -42,13 +115,7 @@ h3 {
 	text-align: center;
 }
 
-form {
-	color: #a7a7a7;
-	font-family: "Calibri", Calibri, sans serif;	
-	font-size: 1em;
-	height: 100%;
-	width: 100%;
-	}
+
 	
 textarea {
 	border-style: none;
@@ -95,83 +162,12 @@ p.votes {
 	text-align: left;
 }
 
-.askbar {
-	background: #4fa8ca;
-	border: 0;
-	height: 55px;
-	position: relative;
-}
-
-.askbar img {
-	bottom: 0;
-	margin: auto;
-	position: absolute;
-	top: 0;
-}
-
-#ask{
-	background-color: white;
-	border: 0px;
-	bottom: 0;
-	display: block;
-	font-style: italic;
-	height:45px;
-	left: 260px;
-	margin: auto;
-	-moz-border-radius: 12px;
-	padding: 0 18px;
-	position: absolute;
-	top: 0;
-	-webkit-border-radius: 12px;
-	width: 50%;
-}
-.button{
-	background: #4fa8ca;
-	border: 0px;
-	border-radius: 12px;
-	color:#e3e3e3;
-	font-family: "Calibri", Calibri, sans serif;
-	font-style: normal;
-	height: 30px;
-	-moz-border-radius: 12px;
-	position: relative;
-	top: 5px;
-	-webkit-border-radius: 12px;
-	width: 60px;
-}
-
-#container {
-	margin-left: 240px;
-	width: 80%;
-}
-
-#header {
-	float: left;
-	width: 100%;
-}
 
 #content {
 	float: left;
 	padding: 10px 0px;
 	width: 100%;
 }
-
-#logo {
-	left: 200px;
-}
-
-#home {
-	right: 100px;
-}
-
-#mail {
-	right: 170px;
-}
-
-#gear {
-	right: 30px;
-}
-
 a:link {
 	color: black;
 	font-family: "Calibri", Calibri, sans serif;

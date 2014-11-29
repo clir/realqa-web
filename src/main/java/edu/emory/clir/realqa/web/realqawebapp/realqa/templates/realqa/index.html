@@ -1,9 +1,22 @@
 {% extends 'realqa/base.html' %}
-	
+
 {% block header %} Dashboard {% endblock %}
 
 <!-- Lists all the questions -->
 {% block content %}
+
+	<script type="text/javascript">
+		window.onload = function() {
+			var question;
+			$.getJSON( "http://realqa.mathcs.emory.edu/questions/", function(result) {
+				$.each(result, function(i, field){
+				$("div").append(field + "");
+				});
+			})
+			
+		};
+	</script>
+	
 	{% if question_list %}
 		{% for question in question_list %}
 			<div class = "box">

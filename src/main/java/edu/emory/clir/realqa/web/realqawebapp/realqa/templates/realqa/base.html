@@ -1,49 +1,27 @@
-<!DOCTYPE html> 
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+{% extends "realqa/base0.html" %}
 
-<html lang="en">
+{% block static %}
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'realqa/css/style.css' %}" />
+{% endblock %}
 
-	<head>
-		<meta charset="utf=8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		
-		<title>RealQA</title>
-		
-		<meta name="description" content="Welcome to RealQA! A site where you can ask questions to your peers, and answer them.">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-		<script src="js/vendor/modernizr-2.6.2.min.js"></script>
-		
-		{% load staticfiles %}
-		
-		<link rel="stylesheet" type="text/css" href="{% static 'realqa/css/normalize.css' %}" />
-		<link rel="stylesheet" type="text/css" href="{% static 'realqa/css/style.css' %}" />
-		<link rel="shortcut icon" type="image/x-icon" href="{% static 'realqa/images/favicon.ico' %}" />
-		<link rel="apple-touch-icon-precomposed" href="{% static 'realqa/images/apple-touch-icon-precomposed.png' %}" />
-	</head>
-	
-	<body>
-		<!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-		
+{% block body %}
+	<div class="outer">
 		<div class="askbar">
-			<img src="{% static 'realqa/images/logo-q.png' %}" id="logo" alt="Logo" style="width:45px; height:45px"> 
+			{% load staticfiles %}
+			<img src="{% static 'realqa/images/logo-q.png' %}" style="width:45px; height:45px; left:200px;"> 
 			
 			<form method = "post">
 				{% csrf_token %}
 				<input type="text" name="ask" id="ask" class="text" placeholder="Ask a question here..." />
-				<input type="submit" value="Post" class="button" />
+				<input type="submit" value="Post" name="submit" id="submit" class="button" />
 			</form>
 			
-			<a href="{% url 'realqa:index' %}"> <img src="{% static 'realqa/images/house.png' %}" id="home" alt="Home" style="width:43px; height:40px"> </a>
-			<a href="{% url 'realqa:inbox' %}"> <img src="{% static 'realqa/images/message.png' %}" id="mail" alt="Messages" style="width:45px; height:34px"> </a>
-			<a href="{% url 'realqa:profile' %}"><img src="{% static 'realqa/images/setting.png' %}" id="gear" alt="Settings" style="width:45px; height:44px"> </a>
-			
+			<a href="{% url 'realqa:index' %}"> <img src="{% static 'realqa/images/house.png' %}" style="width:43px; height:40px; right: 100px;"> </a>
+			<a href="{% url 'realqa:inbox' %}"> <img src="{% static 'realqa/images/message.png' %}" style="width:45px; height:34px; right:170px;"> </a>
+			<a href="{% url 'realqa:profile' %}"> <img src="{% static 'realqa/images/setting.png' %}" style="width:45px; height:44px; right:30px;"> </a>
 		</div>
-		
+	
 		<div id="container">		
 			<div id="header">
 				<h1>
@@ -65,5 +43,5 @@
 				{% endblock %}
 			</div>
 		</div>
-	</body>
-</html>	
+	</div>
+{% endblock %}
