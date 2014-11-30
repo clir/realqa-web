@@ -37,6 +37,35 @@ body {
 	margin-left: 265px;
 	position: absolute;
 }
+
+#logout {
+	background: white;
+	border: 0px;
+	color: #4fa8ca;
+	font-family: "Calibri", Calibri, sans serif;
+	font-style: normal;
+	height: 45px;
+	width: 60px;
+	bottom: 0px;
+	top: 0px;
+	margin: auto;
+	position: absolute;
+}
+
+#help {
+	background: white;
+	border: 0px;
+	color: #4fa8ca;
+	font-family: "Calibri", Calibri, sans serif;
+	font-style: normal;
+	height: 45px;
+	width: 60px;
+	bottom: 0px;
+	top: 0px;
+	margin: auto;
+	position: absolute;
+	left: 65px;
+}
 	
 #ask{
 	background-color: white;

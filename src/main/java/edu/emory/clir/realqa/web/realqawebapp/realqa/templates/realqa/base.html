@@ -8,6 +8,16 @@
 {% block body %}
 	<div class="outer">
 		<div class="askbar">
+			<form action="logout" id="logout_form">
+				{% csrf_token %}
+				<input type="submit" value="Log out" name="logout" id="logout" class="button" />
+			</form>
+			
+			<form action="help">
+				{% csrf_token %}
+				<input type="submit" value="Help" name="help" id="help" class="button" />
+			</form>
+			
 			{% load staticfiles %}
 			<img src="{% static 'realqa/images/logo-q.png' %}" style="width:45px; height:45px; left:200px;"> 
 			
