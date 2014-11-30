@@ -17,13 +17,13 @@
 {% block content %}
 	<nav>
 	<ul>
-		<li>Sort By:
+		<li> Sort By:
 			<ul>
-				<li><a href="#">Freshness</a></li>
-				<li><a href="#">Relevance</a></li>
-				<li><a href="#">Answer Count</a></li>
-				<li><a href="#">Location</a></li>
-				<li><a href="#">Popularity</a></li>
+				<li><a href="#"> Freshness </a></li>
+				<li><a href="#"> Relevance </a></li>
+				<li><a href="#"> Answer Count </a></li>
+				<li><a href="#"> Location </a></li>
+				<li><a href="#"> Popularity </a></li>
 			</ul>
 		</li>
 	</ul>
@@ -38,7 +38,7 @@
 					{% load staticfiles %}
 					{% csrf_token %}
 					<input type="image" src="{% static 'realqa/images/upvote.png' %}"/>
-					<input type="image" src="{% static 'realqa/images/downvote.png' %}" style="top:70px" id="downvote"/>
+					<input type="image" src="{% static 'realqa/images/downvote.png' %}" style="top:70px"/>
 				</form>
 				
 				<div class="body">

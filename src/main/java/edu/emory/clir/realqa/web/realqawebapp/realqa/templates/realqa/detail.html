@@ -1,6 +1,17 @@
 {% extends "realqa/base.html" %}
 
-{% block header %} {{ question.body }} {% endblock %}
+{% block header %} 
+	{{ question.body }} 
+	<p class="votes" style="position:absolute; left:190px; top:45px"> {{ question.score }} </p>
+			
+	<form name="question_vote" id="question_vote" method="post">
+		{% load staticfiles %}
+		{% csrf_token %}
+		<input type="image" src="{% static 'realqa/images/upvote.png' %}" style="left:186px; top:85px;"/>
+		<input type="image" src="{% static 'realqa/images/downvote.png' %}" style="left:186px; top:157px" />
+	</form>
+	
+{% endblock %}
 
 {% block details %}
 	<p class="tags"> 
@@ -15,7 +26,6 @@
 
 <!-- Displays all answers to a particular question -->
 {% block content %}
-
 	{% if error_message %} 
 		<p><strong> {{ error_message }} </strong></p> 
 	{% endif %}
@@ -30,9 +40,21 @@
 		
 	{% for answer in question.answer_set.all %}
 		<div class="box">
-			<p class="votes"> {{ question.score }} </p>
-			<p class="answer_body"> {{ answer.body }} </p>
-			<p class="date"> answered by {{ answer.author }} | {{ answer.added_at }} </p>
+			<p class="votes" style="bottom: 10px"> {{ answer.score }} </p>
+			
+			<form name="votes" method="post">
+					{% load staticfiles %}
+					{% csrf_token %}
+					<input type="image" src="{% static 'realqa/images/upvote.png' %}" style="top:12px"/>
+					<input type="image" src="{% static 'realqa/images/downvote.png' %}" style="top:60px" id="downvote"/>
+			</form>
+			
+			<div class="body">
+				<p class="answer_body"> {{ answer.body }} </p>
+				<p class="date"> answered by {{ answer.author }} | {{ answer.added_at }} </p>
+			</div>
 		</div>
+		
+		
 	{% endfor %}
 {% endblock %}
