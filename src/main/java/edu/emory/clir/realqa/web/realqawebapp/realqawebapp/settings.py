@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'realqa', 
+    #'rest_framework.authtoken', 
 )
 
 MIDDLEWARE_CLASSES = (
