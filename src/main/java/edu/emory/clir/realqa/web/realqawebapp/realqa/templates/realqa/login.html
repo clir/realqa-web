@@ -1,24 +1,4 @@
 {% extends "realqa/base0.html" %}
-
-{% block scripts %}
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
-		$(function() {
-			$('input[name="sign_in"]').click(function() {
-				var formdata = JSON.stringify($("#myForm").serializeArray());
-				$.ajax({
-					type: 'POST',
-					contentType: 'application/json',
-					url: "http://realqa.mathcs.emory.edu/api-token-auth/",
-					dataType: "json",
-					data: formdata,
-					success: function(data) {
-						alert('posted');
-					};
-				});
-			});
-		});
-	</script>
-{% endblock %}
 	
 {% block static %}
 	{% load staticfiles %}
@@ -36,7 +16,7 @@
 				<p> Your username and password didn't match. Please try again. </p>
 			{% endif %}
 			
-			<form method="post" id="login" name="login" action="http://realqa.mathcs.emory.edu/api-token-auth/">
+			<form method="post" id="login" action="http://realqa.mathcs.emory.edu/api-token-auth/">
 				{% csrf_token %}
 				<p id="welcome">Welcome to QA!</p>
 				

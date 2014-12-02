@@ -1,24 +1,4 @@
 {% extends "realqa/base0.html" %}
-
-{% block scripts %}
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
-		$(function() {
-			$('input[name="create_account"]').click(function() {
-				var formdata = JSON.stringify($("#register").serializeArray());
-				$.ajax({
-					type: 'POST',
-					contentType: 'application/json',
-					url: "http://realqa.mathcs.emory.edu/users/",
-					dataType: "json",
-					data: formdata,
-					success: function(data) {
-						console.log(data);
-					};
-				});
-			});
-		});
-	</script>
-{% endblock %}
 		
 {% block static %}
 	{% load staticfiles %}
