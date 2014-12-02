@@ -3,10 +3,7 @@ body {
 }
 
 div {
-	left: 50%;
-	top: 50%;
-	position: fixed;
-	transform: translate(-50%, -50%)
+    margin: 0 auto;
 }
 
 h1 {
@@ -20,11 +17,15 @@ h1 {
 
 div.form {
 	background: #e3e3e3;
-	padding: 80px;
+	padding: 10px 0px 80px 80px;
 	position: relative;
 	border-radius: 12px;
 	-moz-border-radius: 12px;
 	-webkit-border-radius: 12px;
+	margin: 0 auto;
+	width: 50%;
+	text-align: center;
+
 }
 
 form {
@@ -34,13 +35,6 @@ form {
 	font-weight: 400;
 }
 
-#welcome{
-	font-style: normal;
-	left: 50%;
-	top: 0px;
-	position: absolute;
-	transform: translate(-50%);
-}
 
 input {
 	background-color: #f5f5f5;
