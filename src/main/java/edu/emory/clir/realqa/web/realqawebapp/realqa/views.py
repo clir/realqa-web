@@ -1,4 +1,5 @@
 import json, urllib, urllib2
+
 from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.views import generic
@@ -9,13 +10,16 @@ from realqa.models import *
 
 
 def allQuestions(request):
-    model = Question
+    #model = Question
     template_name = 'realqa/index.html'
-    context_object_name = {}
-
+    
+    results = json.loads(json.dumps(json.load(urllib2.urlopen(urllib2.Request('http://realqa.mathcs.emory.edu/questions/')))))
+    #context = json.dumps(json.load(urllib2.urlopen(urllib2.Request('http://realqa.mathcs.emory.edu/questions/'))))
+    context = {'question_list' : results}
+	
     # if user is logged in
     if 'apiToken' in request.session:
-        return render(request, template_name, context_object_name)
+        return render(request, template_name, context)
     else:
         return HttpResponseRedirect('/realqa/login')
 
@@ -55,7 +59,7 @@ def login(request):
         try:
             result = urllib2.urlopen(req)
         except urllib2.URLError, e:
-            # if credentials are bad (redirect back with errors?) <-- someone do that
+            #TODO: if credentials are bad (redirect back with errors?) 
             return HttpResponse(e)
 
          # if response is good
