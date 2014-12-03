@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 from django.views import generic
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
+from random import randint
 
 from realqa.models import *
 
@@ -15,8 +16,15 @@ def allQuestions(request):
     
 	#request list of questions from API
     results = json.loads(json.dumps(json.load(urllib2.urlopen(urllib2.Request('http://realqa.mathcs.emory.edu/questions/')))))
-    context = {'question_list' : results}
-	
+
+    i = 0
+    for str in results['results']:
+        taglist = str['tagnames'].split()
+        results['results'][i]['tagnames'] = taglist
+        i += 1
+
+    context = {'question_list': results}
+
     # if user is logged in
     if 'apiToken' in request.session:
         return render(request, template_name, context)
@@ -72,7 +80,7 @@ def answerQuestion(request, q_id):
     if 'apiToken' in request.session:
         data = {
             "body"				:	request.POST['answer'],
-            "time_spent_editing":	"2"
+            "time_spent_editing":	randint(40, 77) #TODO: change this
             }
 
         jsonstr = json.dumps(data)

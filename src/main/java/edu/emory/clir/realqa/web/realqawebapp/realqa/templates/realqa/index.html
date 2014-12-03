@@ -47,13 +47,10 @@
 					<a href="{% url 'realqa:detail' question.id %}" id="question_body"> {{ question.body }} </a>
 				
 					<!-- Splits the comma separated tags into separate tags with # at the front of each -->
-					<p class="tags"> 
-						<!-- Tags are a string instead of list of tags...!
-						{% for tag in question.tagnames %} 
-							<a href="#">#{{ tag }}</a>
-						{% endfor %} 
-						-->
-						<a href="#">#{{ question.tagnames }}</a>
+					<p class="tags">
+						{% for tag in question.tagnames %}
+							<a href="#" style="padding-right:3px;">#{{ tag }}</a>
+						{% endfor %}
 					</p>
 					
 					<p class="date"> 
