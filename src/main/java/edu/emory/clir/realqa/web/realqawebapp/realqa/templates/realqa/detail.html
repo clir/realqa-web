@@ -1,8 +1,8 @@
 {% extends "realqa/base.html" %}
 
 {% block header %} 
-	{{ question.body }} 
-	<p class="votes" style="position:absolute; left:190px; top:45px"> {{ question.score }} </p>
+	{{ qa.question.body }} 
+	<p class="votes" style="position:absolute; left:190px; top:45px"> {{ qa.question.score }} </p>
 			
 	<form name="question_vote" id="question_vote" method="post">
 		{% load staticfiles %}
@@ -20,8 +20,13 @@
 		{% endfor %} 
 	</p>
 	
-	<p class="date"> asked by {{ question.author }} | {{ question.added_at }} </p>
-	<h2> {{ question.answer_count }} Answers </h2>
+	<p class="date"> 
+		asked by {{ qa.question.username }} | {{ qa.question.added_at }} 
+	</p>
+	
+	<h2> 
+		{{ question.answer_count }} Answers 
+	</h2>
 {% endblock %}
 
 <!-- Displays all answers to a particular question -->
@@ -38,7 +43,7 @@
 		</form>
 	</div>
 		
-	{% for answer in question.answer_set.all %}
+	{% for answer in qa.answers %}
 		<div class="box">
 			<p class="votes" style="bottom: 10px"> {{ answer.score }} </p>
 			
@@ -51,7 +56,7 @@
 			
 			<div class="body">
 				<p class="answer_body"> {{ answer.body }} </p>
-				<p class="date"> answered by {{ answer.author }} | {{ answer.added_at }} </p>
+				<p class="date"> answered by {{ answer.username }} | {{ answer.added_at }} </p>
 			</div>
 		</div>
 		

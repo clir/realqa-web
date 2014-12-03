@@ -10,11 +10,10 @@ from realqa.models import *
 
 
 def allQuestions(request):
-    #model = Question
+
     template_name = 'realqa/index.html'
     
     results = json.loads(json.dumps(json.load(urllib2.urlopen(urllib2.Request('http://realqa.mathcs.emory.edu/questions/')))))
-    #context = json.dumps(json.load(urllib2.urlopen(urllib2.Request('http://realqa.mathcs.emory.edu/questions/'))))
     context = {'question_list' : results}
 	
     # if user is logged in
@@ -24,14 +23,27 @@ def allQuestions(request):
         return HttpResponseRedirect('/realqa/login')
 
 # View for when you click on a question, can view all the answers.
-def questionDetail(request, questionId):
-    model = Question
+def questionDetail(request, q_id):
+
     template_name = 'realqa/detail.html'
-    context_object_name = {}
+    
+    urlq = "http://realqa.mathcs.emory.edu/questions/" + str(q_id)
+    question = json.loads(json.dumps(json.load(urllib2.urlopen(urllib2.Request(urlq)))))
+    urla = "http://realqa.mathcs.emory.edu/questions/" + str(q_id) + "/answers/"
+    answers = json.loads(json.dumps(json.load(urllib2.urlopen(urllib2.Request(urla)))))
 
+    qa = {}
+    qa['question'] = question
+    qa['answers'] = answers 
+	
+    context = {'qa' : qa}
     # hit API and get detailed question data
+	
+    if 'apiToken' in request.session:
+        return render(request, template_name, context)
+    else:
+        return HttpResponseRedirect('/realqa/login')
 
-    return render(request, template_name, context_object_name)
 
 
 def login(request):

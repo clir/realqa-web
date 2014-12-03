@@ -5,7 +5,7 @@ from realqa import views
 
 urlpatterns = patterns('',
     url(r'^$', views.allQuestions, name='index'),
-    url(r'^(?P<pk>\d+)/$', views.questionDetail, name='detail'),
+    url(r'^(?P<q_id>\d+)/$', views.questionDetail, name='detail'),
 
     url(r'^login$', views.login, name='login'),
 	url(r'^logout$', views.logout, name='logout'),
