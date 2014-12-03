@@ -25,7 +25,7 @@
 	</p>
 	
 	<h2> 
-		{{ question.answer_count }} Answers 
+		{{ qa.question.answer_count }} Answer{% if qa.question.answer_count != 1 %}s{% endif %} 
 	</h2>
 {% endblock %}
 
