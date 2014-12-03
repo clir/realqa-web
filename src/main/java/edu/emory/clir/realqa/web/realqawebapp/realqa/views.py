@@ -1,64 +1,88 @@
+import json, urllib, urllib2
 from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
-from django.core.urlresolvers import reverse
 from django.views import generic
-from django.utils import timezone
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
-import json, urllib, urllib2
 
 from realqa.models import *
-from realqa.forms import UserForm
 
-# Create your views here.
 
-API_URL = "http://realqa.mathcs.emory.edu/"
-
-# View for the home page Dashboard where the questions can be viewed.
-class IndexView(generic.ListView):
+def allQuestions(request):
+    model = Question
     template_name = 'realqa/index.html'
-    context_object_name = 'question_list'
+    context_object_name = {}
 
-    # URL to hit API endpoint
-    url = ''.join([API_URL, 'recommended_questions_by_freshness/'])
+    # if user is logged in
+    if 'apiToken' in request.session:
+        return render(request, template_name, context_object_name)
+    else:
+        return HttpResponseRedirect('/realqa/login')
 
-    def get_queryset(self):
-        """Return the last 10 published questions."""
-        return Question.objects.order_by('-added_at')[:10]
-
-
-# View for when you click on a question, can view all the answers.	
-class DetailView(generic.DetailView):
+# View for when you click on a question, can view all the answers.
+def questionDetail(request, questionId):
     model = Question
     template_name = 'realqa/detail.html'
+    context_object_name = {}
 
-    # Orders the answers based on time submitted.
-    def get_queryset(self):
-        return Question.objects.filter(added_at__lte=timezone.now())
+    # hit API and get detailed question data
 
-# class LoginView(generic.ListView):
-#     template_name = 'realqa/login'
-#
-#     # Login and store API token
-#     def login(request):
-#         if request.method == 'POST':
-#             form = LoginForm(request.POST)
-#
-#             if form.is_valid():
-#                 # process the data in form.cleaned_data as required
-#
-#                 # redirect to new url
-#                 return HttpResponseRedirect('realqa/index.html')
-#
-#         else:
-#             form = LoginForm()
-#
-#         return render(request, 'realqa/login.html', {'form': form})
+    return render(request, template_name, context_object_name)
+
+
+def login(request):
+    template_name = 'realqa/login.html'
+    model = User
+
+    # Login user and store API token session
+    if request.method == 'POST':
+        # validation?
+
+        # get request data
+        username = request.POST['username']
+        password = request.POST['password']
+
+        # seralize into JSON
+        data = {
+            "username": username,
+            "password": password
+        }
+        data = json.dumps(data)
+
+        # hit API endpoint
+        req = urllib2.Request('http://realqa.mathcs.emory.edu/api-token-auth/', data, {'Content-Type': 'application/json'})
+
+        try:
+            result = urllib2.urlopen(req)
+        except urllib2.URLError, e:
+            # if credentials are bad (redirect back with errors?) <-- someone do that
+            return HttpResponse(e)
+
+         # if response is good
+        else:
+            # store session var and redirect to index
+            response = HttpResponseRedirect('/realqa/')
+            apiToken = json.load(result)['token']
+            request.session['apiToken'] = apiToken
+
+            return response
+
+
+    # Render login page
+    elif request.method == 'GET':
+        # if user has a stored session var, then no need to log in
+        if 'apiToken' in request.session:
+            return render_to_response('realqa/index.html', {'apiToken': request.session['apiToken']})
+
+        return render(request, template_name)
 
 
 # Logout only possible when user is already logged in, redirects to a page telling user they have been logged out.
-@login_required
-def user_logout(request):
-    logout(request)
-    return HttpResponseRedirect('/realqa/logout/')
+def logout(request):
+
+    if 'apiToken' in request.session:
+        del request.session['apiToken']
+
+    return HttpResponseRedirect('/realqa/login')
+
+

@@ -16,7 +16,7 @@
 				<p> Your username and password didn't match. Please try again. </p>
 			{% endif %}
 			
-			<form method="post" id="login" action="http://realqa.mathcs.emory.edu/api-token-auth/">
+			<form method="post" id="login" action="{% url 'realqa:login' %}">
 				{% csrf_token %}
 				<p id="welcome">Welcome to QA!</p>
 				
@@ -24,7 +24,6 @@
 				<br />
 				<input type="password" name="password" id="password" class="text" placeholder="Password"/>
 				<br />
-				<input type="hidden" name="next" id="next" value="{{ next }}" />
 				<input type="submit" value="Sign in" name="sign_in" id="sign_in" class="button"/>
 			</form>
 				

@@ -1,15 +1,15 @@
 {% extends 'realqa/base.html' %}
 
-<script type="text/javascript">
-	window.onload = function() {
-		var question;
-		$.getJSON( "http://realqa.mathcs.emory.edu/questions/", function(result) {
-			$.each(result, function(i, field){
-			$("div").append(field + "");
-			});
-		})
-	};
-</script>
+<!--<script type="text/javascript">-->
+	<!--window.onload = function() {-->
+		<!--var question;-->
+		<!--$.getJSON( "http://realqa.mathcs.emory.edu/questions/", function(result) {-->
+			<!--$.each(result, function(i, field){-->
+			<!--$("div").append(field + "");-->
+			<!--});-->
+		<!--})-->
+	<!--};-->
+<!--</script>-->
 
 {% block header %} Dashboard {% endblock %}
 
