@@ -36,7 +36,7 @@
 	{% endif %}
 	
 	<div class="box">
-		<form method="post" action="http://realqa.mathcs.emory.edu/questions/question.id/answers/">
+		<form method="post" action="{% url 'realqa:ans' qa.question.id %}">
 			{% csrf_token %}
 			<textarea name="answer" id="answer" rows="4" placeholder="Type your response here..." /></textarea> 
 			<input type="submit" name="answer_submit" id="answer_submit" value="Post" class="button"/>

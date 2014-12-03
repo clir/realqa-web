@@ -1,4 +1,4 @@
-import json, urllib, urllib2
+import json, urllib, urllib2, base64
 
 from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
@@ -45,49 +45,58 @@ def questionDetail(request, q_id):
     else:
         return HttpResponseRedirect('/realqa/login')
 
-#Ask a question
-"""
-def askQuestion(request):
-    
-	#must be logged in
-    if 'apiToken' request.session:
-        data = {
-    	    "body"				 : request.POST['body'],
-            "tagnames"			 : request.POST['tags'],
-            "time_spent_editing" : request.POST['edit_time'],
-            "latitude"			 : request.POST['lat'],
-            "longitude" 		 : request.POST['long'],
-            "location_name" 	 : request.POST['loc']
-        }
-		
-        json = json.dumps(data)
-        req = urllib2.Request('http://realqa.mathcs.emory.edu/questions/', json, request.session['apiToken'])
-		
-		return HttpResponseRedirect('/realqa/')			
-	else:
-        return HttpResponseRedirect('/realqa/login')
-"""
+# #Ask a question
+# def askQuestion(request):
+#
+# 	#must be logged in
+#     if 'apiToken' request.session:
+#         data = {
+#     	    "body"				 : request.POST['body'],
+#             "tagnames"			 : request.POST['tags'],
+#             "time_spent_editing" : request.POST['edit_time'],
+#             "latitude"			 : request.POST['lat'],
+#             "longitude" 		 : request.POST['long'],
+#             "location_name" 	 : request.POST['loc']
+#         }
+#
+#         json = json.dumps(data)
+#         req = urllib2.Request('http://realqa.mathcs.emory.edu/questions/', json, request.session['apiToken'])
+#
+# 		return HttpResponseRedirect('/realqa/')
+# 	else:
+#         return HttpResponseRedirect('/realqa/login')
 	
 #Answer a question
 def answerQuestion(request, q_id):
 
-    data = {
-	    "body"				:	request.POST['answer'],
-        "time_spent_editing":	2 #request.POST['edit_time']
-        }
-	
-    jsonstr = json.dumps(data)
-    url = "http://realqa.mathcs.emory.edu/questions/" + str(q_id) + "answers/"
-    headers = {
-	           'Token' : request.session['apiToken'],
-			   'Content-Type': 'application/json'
-			   }
-	
-    req = urllib2.Request(url, jsonstr, headers)
-    res = urllib2.urlopen(req)
-    context = {"question_list" : res}
-	
-    return render(request, 'realqa/index.html', context) #redirect home"""'/questions/%s' % q_id""" 
+    if 'apiToken' in request.session:
+        data = {
+            "body"				:	request.POST['answer'],
+            "time_spent_editing":	"2"
+            }
+
+        jsonstr = json.dumps(data)
+        url = "http://realqa.mathcs.emory.edu/questions/" + str(q_id) + "/answers/"
+        headers = {
+                   'Content-Type': 'application/json',
+                   'Authorization': 'Basic ' + request.session['auth']
+                   }
+
+        req = urllib2.Request(url, jsonstr, headers)
+
+        try:
+            result = urllib2.urlopen(req)
+        except urllib2.URLError, e:
+            #TODO: if credentials are bad (redirect back with errors?)
+            return HttpResponseRedirect('/realqa/%s/' % q_id) # HTTP RETURNS 500 error but still posts so we hacked the solution
+
+         # if response is good
+        else:
+            return HttpResponseRedirect('/realqa/%s/' % q_id) # HTTP RETURNS 500 error but still posts so we hacked the solution
+
+
+    else:
+        return HttpResponseRedirect('/realqa/login')
 
 
 def login(request):
@@ -96,7 +105,7 @@ def login(request):
 
     # Login user and store API token session
     if request.method == 'POST':
-        # validation?
+        #TODO: validate, but not really
 
         # get request data
         username = request.POST['username']
@@ -124,6 +133,7 @@ def login(request):
             response = HttpResponseRedirect('/realqa/')
             apiToken = json.load(result)['token']
             request.session['apiToken'] = apiToken
+            request.session['auth'] = base64.b64encode(username + ":" + password)
 
             return response
 
