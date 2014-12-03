@@ -8,11 +8,12 @@ from django.contrib.auth.decorators import login_required
 
 from realqa.models import *
 
-
+#View all questions
 def allQuestions(request):
 
     template_name = 'realqa/index.html'
     
+	#request list of questions from API
     results = json.loads(json.dumps(json.load(urllib2.urlopen(urllib2.Request('http://realqa.mathcs.emory.edu/questions/')))))
     context = {'question_list' : results}
 	
@@ -22,11 +23,12 @@ def allQuestions(request):
     else:
         return HttpResponseRedirect('/realqa/login')
 
-# View for when you click on a question, can view all the answers.
+# View a particular question and its answers
 def questionDetail(request, q_id):
 
     template_name = 'realqa/detail.html'
     
+	# hit API and get detailed question data
     urlq = "http://realqa.mathcs.emory.edu/questions/" + str(q_id)
     question = json.loads(json.dumps(json.load(urllib2.urlopen(urllib2.Request(urlq)))))
     urla = "http://realqa.mathcs.emory.edu/questions/" + str(q_id) + "/answers/"
@@ -37,13 +39,55 @@ def questionDetail(request, q_id):
     qa['answers'] = answers 
 	
     context = {'qa' : qa}
-    # hit API and get detailed question data
-	
+
     if 'apiToken' in request.session:
         return render(request, template_name, context)
     else:
         return HttpResponseRedirect('/realqa/login')
 
+#Ask a question
+"""
+def askQuestion(request):
+    
+	#must be logged in
+    if 'apiToken' request.session:
+        data = {
+    	    "body"				 : request.POST['body'],
+            "tagnames"			 : request.POST['tags'],
+            "time_spent_editing" : request.POST['edit_time'],
+            "latitude"			 : request.POST['lat'],
+            "longitude" 		 : request.POST['long'],
+            "location_name" 	 : request.POST['loc']
+        }
+		
+        json = json.dumps(data)
+        req = urllib2.Request('http://realqa.mathcs.emory.edu/questions/', json, request.session['apiToken'])
+		
+		return HttpResponseRedirect('/realqa/')			
+	else:
+        return HttpResponseRedirect('/realqa/login')
+"""
+	
+#Answer a question
+def answerQuestion(request, q_id):
+
+    data = {
+	    "body"				:	request.POST['answer'],
+        "time_spent_editing":	2 #request.POST['edit_time']
+        }
+	
+    jsonstr = json.dumps(data)
+    url = "http://realqa.mathcs.emory.edu/questions/" + str(q_id) + "answers/"
+    headers = {
+	           'Token' : request.session['apiToken'],
+			   'Content-Type': 'application/json'
+			   }
+	
+    req = urllib2.Request(url, jsonstr, headers)
+    res = urllib2.urlopen(req)
+    context = {"question_list" : res}
+	
+    return render(request, 'realqa/index.html', context) #redirect home"""'/questions/%s' % q_id""" 
 
 
 def login(request):
