@@ -77,11 +77,13 @@ body {
 	width: 45%;
 	margin: auto;
 	padding: 0 18px;
+	border-radius: 12px;
 	-moz-border-radius: 12px;
 	-webkit-border-radius: 12px;
 }
 
 .button {
+	border-radius: 12px;
 	-moz-border-radius: 12px;
 	-webkit-border-radius: 12px;
 }
@@ -107,6 +109,7 @@ body {
 #header {
 	float: left;
 	width: 100%;
+	position: relative;
 }
 
 h1 {
