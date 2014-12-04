@@ -54,25 +54,39 @@ def questionDetail(request, q_id):
         return HttpResponseRedirect('/realqa/login')
 
 # #Ask a question
-# def askQuestion(request):
-#
-# 	#must be logged in
-#     if 'apiToken' request.session:
-#         data = {
-#     	    "body"				 : request.POST['body'],
-#             "tagnames"			 : request.POST['tags'],
-#             "time_spent_editing" : request.POST['edit_time'],
-#             "latitude"			 : request.POST['lat'],
-#             "longitude" 		 : request.POST['long'],
-#             "location_name" 	 : request.POST['loc']
-#         }
-#
-#         json = json.dumps(data)
-#         req = urllib2.Request('http://realqa.mathcs.emory.edu/questions/', json, request.session['apiToken'])
-#
-# 		return HttpResponseRedirect('/realqa/')
-# 	else:
-#         return HttpResponseRedirect('/realqa/login')
+def askQuestion(request):
+
+	#must be logged in
+    if 'apiToken' in request.session:
+        data = {
+    	   	"body"				 : request.POST['ask'],
+            "tagnames"			 : "tags more tags", 
+            "time_spent_editing" : randint(40, 77), 
+            "latitude"			 : randint(0, 90), 
+            "longitude" 		 : randint(0, 180), 
+            "location_name" 	 : []
+        }
+
+        jsonstr = json.dumps(data)
+        headers = {
+                   'Content-Type': 'application/json',
+                   'Authorization': 'Basic ' + request.session['auth']
+                   }
+				   
+        url = "http://realqa.mathcs.emory.edu/questions/"
+				   
+        req = urllib2.Request(url, jsonstr, headers)
+
+        try:
+            result = urllib2.urlopen(req)
+        except urllib2.URLError, e:
+            #TODO: if credentials are bad (redirect back with errors?)
+            return HttpResponseRedirect('/realqa/inbox') # HTTP RETURNS 500 error but still posts so we hacked the solution
+         # if response is good
+        else:
+            return HttpResponseRedirect('/realqa/inbox') 
+    else:
+        return HttpResponseRedirect('/realqa/login')
 	
 #Answer a question
 def answerQuestion(request, q_id):
@@ -97,12 +111,9 @@ def answerQuestion(request, q_id):
         except urllib2.URLError, e:
             #TODO: if credentials are bad (redirect back with errors?)
             return HttpResponseRedirect('/realqa/%s/' % q_id) # HTTP RETURNS 500 error but still posts so we hacked the solution
-
          # if response is good
         else:
-            return HttpResponseRedirect('/realqa/%s/' % q_id) # HTTP RETURNS 500 error but still posts so we hacked the solution
-
-
+            return HttpResponseRedirect('/realqa/%s/' % q_id) 
     else:
         return HttpResponseRedirect('/realqa/login')
 
