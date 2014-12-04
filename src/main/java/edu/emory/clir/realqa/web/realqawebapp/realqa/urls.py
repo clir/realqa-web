@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from realqa import views
 
 urlpatterns = patterns('',
-    url(r'^$', views.allQuestions, name='index'),
+    url(r'^(?P<sort>\d+)/$', views.allQuestions, name='index'),
     url(r'^(?P<q_id>\d+)/$', views.questionDetail, name='detail'),
     url(r'^ans/(?P<q_id>\d+)/$', views.answerQuestion, name='ans'),
 	url(r'^ask/$', views.askQuestion, name = 'ask'),
