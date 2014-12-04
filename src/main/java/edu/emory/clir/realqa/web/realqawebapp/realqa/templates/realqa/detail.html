@@ -2,13 +2,13 @@
 
 {% block header %} 
 	{{ qa.question.body }} 
-	<p class="votes" style="position:absolute; left:190px; top:45px"> {{ qa.question.score }} </p>
+	<p class="votes" style="position:absolute; left:-50px; top:0px"> {{ qa.question.score }} </p>
 			
 	<form name="question_vote" id="question_vote" method="post">
 		{% load staticfiles %}
 		{% csrf_token %}
-		<input type="image" src="{% static 'realqa/images/upvote.png' %}" style="left:186px; top:85px;"/>
-		<input type="image" src="{% static 'realqa/images/downvote.png' %}" style="left:186px; top:157px" />
+		<input type="image" src="{% static 'realqa/images/upvote.png' %}" style="left:-54px; top:35px;"/>
+		<input type="image" src="{% static 'realqa/images/downvote.png' %}" style="left:-54px; top:118px;" />
 	</form>
 	
 {% endblock %}
