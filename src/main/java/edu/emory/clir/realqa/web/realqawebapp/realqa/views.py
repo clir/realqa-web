@@ -95,11 +95,26 @@ def questionDetail(request, q_id):
 # #Ask a question
 def askQuestion(request):
 
+    query = request.POST['ask']
+	
+    taglist = [word for word in query.split() if word.startswith('#')]
+    f_taglist = []
+    for tag in taglist: 
+        f_taglist.append(tag[1:])
+
+    #loclist = [word for word in query.split() if word.startswith('@')]
+	
+    questionlist = [word for word in query.split() if word not in taglist] #and word not in locs
+	
+    tags = ' '.join(f_taglist)
+    #locs = ' '.join(loclist)
+    question = ' '.join(questionlist)
+
     #must be logged in
     if 'apiToken' in request.session:
         data = {
-    	    "body"				 : request.POST['ask'],
-            "tagnames"			 : "tags more tags",
+    	    "body"				 : question,
+            "tagnames"			 : tags,
             "time_spent_editing" : randint(40, 77), 
             "latitude"			 : randint(0, 90), 
             "longitude" 		 : randint(0, 180), 
