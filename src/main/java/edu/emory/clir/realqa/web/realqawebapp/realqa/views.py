@@ -56,6 +56,7 @@ def allQuestionsSort(request, sort):
 
     return render(request, template_name, context) 
 
+
 # View a particular question and its answers
 def questionDetail(request, q_id):
 
