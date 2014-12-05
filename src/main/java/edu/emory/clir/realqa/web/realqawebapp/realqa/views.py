@@ -168,6 +168,36 @@ def answerQuestion(request, q_id):
     else:
         return HttpResponseRedirect('/realqa/login')
 
+	
+def upvote(request, q_id, id):
+
+    headers = {
+           'Content-Type': 'application/json',
+           'Authorization': 'Basic ' + request.session['auth']
+           }
+		   
+    url = "http://realqa.mathcs.emory.edu/nodes/" + str(id) + "/vote?vote_type=up" 
+
+    req = urllib2.Request(url, "", headers)
+    
+    result = urllib2.urlopen(req)
+    return HttpResponseRedirect('/realqa/questions/%s/' % q_id)
+
+def downvote(request, q_id, id):
+
+    headers = {
+           'Content-Type': 'application/json',
+           'Authorization': 'Basic ' + request.session['auth']
+           }
+		   
+    url = "http://realqa.mathcs.emory.edu/nodes/" + str(id) + "/vote?vote_type=down" 
+
+    req = urllib2.Request(url, "", headers)
+    
+    result = urllib2.urlopen(req)
+    return HttpResponseRedirect('/realqa/questions/%s/' % q_id)
+
+    
 
 def login(request):
     template_name = 'realqa/login.html'

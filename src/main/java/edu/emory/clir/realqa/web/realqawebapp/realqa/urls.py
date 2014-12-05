@@ -8,7 +8,11 @@ urlpatterns = patterns('',
 
 
     url(r'^questions/(?P<q_id>\d+)/$', views.questionDetail, name='detail'),
-    url(r'^questions/(?P<q_id>\d+)/answer/$', views.answerQuestion, name='ans'),
+	
+	url(r'^questions/(?P<q_id>\d+)/vote/(?P<id>\d+)/d/$', views.downvote, name = 'downvote'),
+    url(r'^questions/(?P<q_id>\d+)/vote/(?P<id>\d+)/u/$', views.upvote, name = 'upvote'),
+	
+	url(r'^questions/(?P<q_id>\d+)/answer/$', views.answerQuestion, name='ans'),
 	url(r'^questions/ask/$', views.askQuestion, name = 'ask'),
     url(r'^questions/tags/(?P<tag>.+)/$', views.questionsByTag, name='tags'),
 	url(r'^(?P<sort>\d+)/$', views.allQuestionsSort, name='sort'),

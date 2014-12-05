@@ -4,13 +4,13 @@
 	{{ qa.question.body }} 
 	<p class="votes" style="position:absolute; left:-50px; top:0px"> {{ qa.question.score }} </p>
 			
-	<form name="upvote" id="upvote" method="post" action="http://realqa.mathcs.emory.edu/nodes/{{ qa.question.id }}/vote?vote_type=up">
+	<form name="upvote" id="upvote" method="post" action="{% url 'realqa:upvote' qa.question.id qa.question.id %}">
 		{% load staticfiles %}
 		{% csrf_token %}
 		<input type="image" name="submit_upvote" src="{% static 'realqa/images/upvote.png' %}" style="left:-54px; top:35px;"/>
 	</form>
 	
-	<form name="downvote" id="downvote" method="post" action="http://realqa.mathcs.emory.edu/nodes/{{ qa.question.id }}/vote?vote_type=down">
+	<form name="downvote" id="downvote" method="post" action="{% url 'realqa:downvote' qa.question.id qa.question.id %}">
 		{% load staticfiles %}
 		{% csrf_token %}
 		<input type="image" src="{% static 'realqa/images/downvote.png' %}" style="left:-54px; top:118px;" />
@@ -52,13 +52,13 @@
 		<div class="box">
 			<p class="votes" style="bottom: 10px"> {{ answer.score }} </p>
 
-			<form name="upvote" id="upvote" method="post" action="http://realqa.mathcs.emory.edu/nodes/{{ answer.id }}/vote?vote_type=up">
+			<form name="upvote" id="upvote" method="post" action="{% url 'realqa:upvote' qa.question.id answer.id %}">
 				{% load staticfiles %}
 				{% csrf_token %}
 				<input type="image" name="submit_upvote" src="{% static 'realqa/images/upvote.png' %}" style="top:12px"/>
 			</form>
 			
-			<form name="downvote" id="downvote" method="post" action="http://realqa.mathcs.emory.edu/nodes/{{ answer.id }}/vote?vote_type=down">
+			<form name="downvote" id="downvote" method="post" action="{% url 'realqa:downvote' qa.question.id answer.id %}">
 				{% load staticfiles %}
 				{% csrf_token %}
 				<input type="image" src="{% static 'realqa/images/downvote.png' %}" style="top:60px" />
