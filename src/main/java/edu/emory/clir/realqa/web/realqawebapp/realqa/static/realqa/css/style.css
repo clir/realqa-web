@@ -4,19 +4,13 @@ body {
 	font-family: "Calibri", Calibri, sans serif;
 }
 
-.outer {
-	overflow: auto;
-	height: 100vh;
-}
-
 .askbar {
 	background: #4fa8ca;
 	border: 0;
 	height: 55px;
-	min-width: 1000px;
+	min-width: 1100px;
 	position: relative;
 	width: 100%;
-	overflow: visible;
 }
 
 .askbar img {
@@ -28,13 +22,14 @@ body {
 }
 
 #ask_form {
+	box-sizing: border-box;
 	color: #a7a7a7;
 	font-family: "Calibri", Calibri, sans serif;	
 	font-size: 1em;
 	height: 100%;
 	width: 100%;
 	top: 4px;
-	margin-left: 265px;
+	padding-left: 265px;
 	position: absolute;
 }
 
@@ -74,7 +69,7 @@ body {
 	top: 0px;
 	font-style: italic;
 	height: 45px;
-	width: 45%;
+	width: 60%;
 	margin: auto;
 	padding: 0 18px;
 	border-radius: 12px;
