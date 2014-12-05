@@ -24,7 +24,7 @@
 			<form method="post" id="ask_form" action = "{% url 'realqa:ask' %}">
 				{% csrf_token %}
 				
-				<input type="text" name="ask" id="ask" class="text" placeholder="Ask a question here..." />
+				<input type="text" name="ask" id="ask" class="text" placeholder="Ask a question here!  Hint: Use #tags to increase your question's visibility to other users..." />
 				<input type="submit" value="Post" name="submit" id="submit" class="button" />
 			</form>
 			
