@@ -45,6 +45,7 @@ body {
 	top: 0px;
 	margin: auto;
 	position: absolute;
+	z-index: 1;
 }
 
 #help {
@@ -60,6 +61,7 @@ body {
 	margin: auto;
 	position: absolute;
 	left: 65px;
+	z-index: 1;
 }
 	
 #ask{
