@@ -36,13 +36,6 @@
 			<div class="box">
 				<p class="votes"> {{ question.score }} </p>
 				
-				<form name="votes" method="post">
-					{% load staticfiles %}
-					{% csrf_token %}
-					<input type="image" src="{% static 'realqa/images/upvote.png' %}"/>
-					<input type="image" src="{% static 'realqa/images/downvote.png' %}" style="top:70px"/>
-				</form>
-				
 				<div class="body">
 					<a href="{% url 'realqa:detail' question.content_object.id %}" id="question_body"> {{ question.content_object.body }} </a>
 				
