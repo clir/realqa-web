@@ -29,8 +29,39 @@ def allQuestions(request):
     if 'apiToken' in request.session:
         return render(request, template_name, context)
     else:
-        return HttpResponseRedirect('/realqa/login')
+        return HttpResponseRedirect('/realqa/login')		
 
+def sort(x):
+	return {
+		'0': json.loads(json.dumps(json.load(urllib2.urlopen(urllib2.Request('http://realqa.mathcs.emory.edu/recommended_questions_by_freshness/', {}, {'Content-Type': 'application/json', 'Authorization': 'Basic ' + request.session['auth']}))))),
+		'1': json.loads(json.dumps(json.load(urllib2.urlopen(urllib2.Request('http://realqa.mathcs.emory.edu/recommended_questions_by_relevance/', {'Content-Type': 'application/json', 'Authorization': 'Basic ' + request.session['auth']}))))),
+		'2': json.loads(json.dumps(json.load(urllib2.urlopen(urllib2.Request('http://realqa.mathcs.emory.edu/recommended_questions_by_answer_count/', {'Content-Type': 'application/json', 'Authorization': 'Basic ' + request.session['auth']}))))),
+		'3': json.loads(json.dumps(json.load(urllib2.urlopen(urllib2.Request('http://realqa.mathcs.emory.edu/recommended_questions_by_location/', {'Content-Type': 'application/json', 'Authorization': 'Basic ' + request.session['auth']}))))),
+		'4': json.loads(json.dumps(json.load(urllib2.urlopen(urllib2.Request('http://realqa.mathcs.emory.edu/recommended_questions_by_popularity/', {'Content-Type': 'application/json', 'Authorization': 'Basic ' + request.session['auth']})))))
+	}.get(x, json.loads(json.dumps(json.load(urllib2.urlopen(urllib2.Request('http://realqa.mathcs.emory.edu/questions/'))))))
+
+def allQuestionsSortAnsCount(request):
+
+    template_name = 'realqa/index2.html'
+    
+	#request list of questions from API
+    results = json.loads(json.dumps(json.load(urllib2.urlopen(urllib2.Request('http://realqa.mathcs.emory.edu/recommended_questions_by_answer_count/', None, {'Authorization':'Basic ' + request.session['auth']})))))
+
+    for result in results['results']:
+        taglist = result['content_object']['tagnames'].split()
+        result['content_object']['tagnames'] = taglist
+
+    context = {'question_list': results}
+
+    # if user is logged in
+    # try:
+        # result = urllib2.urlopen(req)
+    # except urllib2.URLError, e:
+        # return render(request, template_name, context) 
+    # else:
+    return render(request, template_name, context) 
+
+		
 # View a particular question and its answers
 def questionDetail(request, q_id):
 
