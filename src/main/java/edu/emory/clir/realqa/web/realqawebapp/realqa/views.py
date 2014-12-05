@@ -96,16 +96,14 @@ def questionDetail(request, q_id):
 def askQuestion(request):
 
     query = request.POST['ask']
-	
     taglist = [word for word in query.split() if word.startswith('#')]
     f_taglist = []
     for tag in taglist: 
         f_taglist.append(tag[1:])
 
     #loclist = [word for word in query.split() if word.startswith('@')]
-	
+
     questionlist = [word for word in query.split() if word not in taglist] #and word not in locs
-	
     tags = ' '.join(f_taglist)
     #locs = ' '.join(loclist)
     question = ' '.join(questionlist)
@@ -113,7 +111,7 @@ def askQuestion(request):
     #must be logged in
     if 'apiToken' in request.session:
         data = {
-    	    "body"				 : question,
+            "body"				 : question,
             "tagnames"			 : tags,
             "time_spent_editing" : randint(40, 77), 
             "latitude"			 : randint(0, 90), 
@@ -250,3 +248,43 @@ def questionsByTag(request, tag):
         return render(request, template_name, context)
     else:
         return HttpResponseRedirect('/realqa/login')
+
+# Register a user
+def register(request):
+
+    template_name = 'realqa/register.html'
+
+    if request.method == 'GET':
+        # if user has a stored session var, then no need to register
+        if 'apiToken' in request.session:
+                return render_to_response('realqa/index.html', {'apiToken': request.session['apiToken']})
+
+        return render(request, template_name)
+
+    elif request.method == 'POST':
+
+        username = request.POST['username']
+        password = request.POST['password']
+
+        data = {
+            "username": username,
+            "password": password,
+            "device_id": randint(0, 1000)
+        }
+
+        data = json.dumps(data)
+        headers = {
+            "Content-Type": "application/json"
+        }
+
+        url = "http://realqa.mathcs.emory.edu/users/"
+        req = urllib2.Request(url, data, headers)
+
+        try:
+            result = urllib2.urlopen(req)
+        except urllib2.URLError, e:
+            # For some reason this returns a 500 error, but we should log in user here
+            return HttpResponseRedirect('/realqa/login')
+
+        else:
+            return HttpResponseRedirect('/realqa/login')

@@ -18,14 +18,13 @@
 				
 			<!-- If not registered, let user submit username and password to register -->
 			{% else %}
-				<form method="post" name="register" id="register" action="http://realqa.mathcs.emory.edu/users/">
+				<form method="post" name="register" id="register" action="{% url 'realqa:register' %}">
 					{% csrf_token %}
 					<p id="welcome"> Register for RealQA: </p>
 					<input type="text" name="username" id="username" class="text" placeholder="Username" size="30" title="Required. 30 characters or fewer. Letters, numbers and @/./+/-/_ characters"/>
 					<br />
 					<input type="password" name="password" id="password" class="text" placeholder="Password"/>
 					<br />
-					<input type="hidden" name="next" value="{{ next }}"/>
 					<input type="submit" value="Create account" id="create_account" class="button"/>
 				</form>
 			{% endif %}
