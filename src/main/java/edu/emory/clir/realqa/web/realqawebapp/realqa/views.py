@@ -133,10 +133,10 @@ def askQuestion(request):
             result = urllib2.urlopen(req)
         except urllib2.URLError, e:
             #TODO: if credentials are bad (redirect back with errors?)
-            return HttpResponseRedirect('/realqa/inbox') # HTTP RETURNS 500 error but still posts so we hacked the solution
+            return HttpResponseRedirect('/realqa/success') # HTTP RETURNS 500 error but still posts so we hacked the solution
          # if response is good
         else:
-            return HttpResponseRedirect('/realqa/inbox') 
+            return HttpResponseRedirect('/realqa/success') 
     else:
         return HttpResponseRedirect('/realqa/login')
 
