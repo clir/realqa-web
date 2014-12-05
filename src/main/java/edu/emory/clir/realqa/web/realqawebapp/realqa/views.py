@@ -32,6 +32,7 @@ def allQuestions(request):
     else:
         return HttpResponseRedirect('/realqa/login')		
 
+		
 def getURL(x):
 	return {
 		'0': 'http://realqa.mathcs.emory.edu/recommended_questions_by_freshness/',
@@ -39,19 +40,31 @@ def getURL(x):
 		'2': 'http://realqa.mathcs.emory.edu/recommended_questions_by_answer_count/',
 		'3': 'http://realqa.mathcs.emory.edu/recommended_questions_by_location/',
 		'4': 'http://realqa.mathcs.emory.edu/recommended_questions_by_popularity/', 
+		'5': 'http://realqa.mathcs.emory.edu/asked_questions/',
+		'6': 'http://realqa.mathcs.emory.edu/subscribed_questions/',
+		'7': 'http://realqa.mathcs.emory.edu/answered_questions/'
 	}.get(x, 'http://realqa.mathcs.emory.edu/questions/')
 
+	
 def allQuestionsSort(request, sort):
-
-    template_name = 'realqa/index2.html'
 
     url = getURL(sort)
     results = json.loads(json.dumps(json.load(urllib2.urlopen(urllib2.Request(url, None, {'Authorization':'Basic ' + request.session['auth']})))))
-
-    for result in results['results']:
-        taglist = result['content_object']['tagnames'].split()
-        result['content_object']['tagnames'] = taglist
-
+	
+    if sort is '5' or '6' or '7':
+        template_name = 'realqa/index.html'
+        i = 0
+        for str in results['results']:
+            taglist = str['tagnames'].split()
+            results['results'][i]['tagnames'] = taglist
+            i += 1
+			
+    else:
+		template_name = 'realqa/index2.html'
+		for result in results['results']:
+			taglist = result['content_object']['tagnames'].split()
+			result['content_object']['tagnames'] = taglist
+			
     context = {'question_list': results}
 
     return render(request, template_name, context) 
