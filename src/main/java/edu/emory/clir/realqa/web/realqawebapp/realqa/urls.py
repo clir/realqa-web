@@ -5,10 +5,11 @@ from realqa import views
 
 urlpatterns = patterns('',
     url(r'^$', views.allQuestions, name='index'),
-    url(r'^(?P<q_id>\d+)/$', views.questionDetail, name='detail'),
-    url(r'^ans/(?P<q_id>\d+)/$', views.answerQuestion, name='ans'),
-	url(r'^ask/$', views.askQuestion, name = 'ask'),
-	url(r'^(?P<sort>\d+)/$', views.allQuestions, name='sort'),
+    url(r'^questions/(?P<q_id>\d+)/$', views.questionDetail, name='detail'),
+    url(r'^questions/(?P<q_id>\d+)/answer/$', views.answerQuestion, name='ans'),
+	url(r'^questions/ask/$', views.askQuestion, name = 'ask'),
+	url(r'^questions/sort/(?P<sort>\d+)/$', views.allQuestions, name='sort'),
+    url(r'^questions/tags/(?P<tag>.+)/$', views.questionsByTag, name='tags'),
 
     url(r'^login$', views.login, name='login'),
 	url(r'^logout$', views.logout, name='logout'),

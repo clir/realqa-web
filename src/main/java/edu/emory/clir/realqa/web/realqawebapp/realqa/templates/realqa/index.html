@@ -49,7 +49,7 @@
 					<!-- Splits the comma separated tags into separate tags with # at the front of each -->
 					<p class="tags">
 						{% for tag in question.tagnames %}
-							<a href="#" style="padding-right:3px;">#{{ tag }}</a>
+							<a href="{% url 'realqa:tags' tag %}" style="padding-right:3px;">#{{ tag }}</a>
 						{% endfor %}
 					</p>
 					
