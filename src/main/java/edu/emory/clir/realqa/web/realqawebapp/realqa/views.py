@@ -51,7 +51,7 @@ def allQuestionsSort(request, sort):
     url = getURL(sort)
     results = json.loads(json.dumps(json.load(urllib2.urlopen(urllib2.Request(url, None, {'Authorization':'Basic ' + request.session['auth']})))))
 	
-    if sort is '5' or '6' or '7':
+    if sort == '5' or sort == '6' or sort == '7':
         template_name = 'realqa/index.html'
         i = 0
         for str in results['results']:
@@ -60,10 +60,10 @@ def allQuestionsSort(request, sort):
             i += 1
 			
     else:
-		template_name = 'realqa/index2.html'
-		for result in results['results']:
-			taglist = result['content_object']['tagnames'].split()
-			result['content_object']['tagnames'] = taglist
+        template_name = 'realqa/index2.html'
+        for result in results['results']:
+		    taglist = result['content_object']['tagnames'].split()
+		    result['content_object']['tagnames'] = taglist
 			
     context = {'question_list': results}
 

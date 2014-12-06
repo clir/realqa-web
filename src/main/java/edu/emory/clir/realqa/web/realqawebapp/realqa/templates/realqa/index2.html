@@ -34,7 +34,7 @@
 
 		{% for question in question_list.results %}
 			<div class="box">
-				<p class="votes"> {{ question.score }} </p>
+				<p class="votes"> {{ question.content_object.score }} </p>
 				
 				<div class="body">
 					<a href="{% url 'realqa:detail' question.content_object.id %}" id="question_body"> {{ question.content_object.body }} </a>
