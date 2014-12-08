@@ -173,13 +173,21 @@ class Client_Test(TestCase):
         #doesnt post if there is no '#' need to find a way to include this in testing
 #----------------------------------------------------------------------------------------------------------#
 
-    def test_post(self):
+    def test_register(self): #test is not correct
 
         self.factory = RequestFactory() #dummy request according to tutorial
 
-        request2 = self.factory.get('/realqa/')
-        request2.post['username'] = 'JohnDoe1'
-        request2.post['password'] = 'JohnDoe2'
+        request1 = self.factory.get('/realqa/')
+        request1.post['username'] = 'JohnDoe1'
+        request1.post['password'] = 'JohnDoe2'
+        #register_data = {      #not going to work
+        #        'username': 'JohnDoe1',
+        #        'password': 'JohnDoe2',
+        #    }
+
+        response = HttpResponseRedirect('/realqa/login')
+
+        self.assertEquals(views.register(request1), response) #not working
 
 #----------------------------------------------------------------------------------------------------------#
 
