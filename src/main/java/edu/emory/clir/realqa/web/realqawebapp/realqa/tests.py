@@ -5,7 +5,8 @@ from realqawebapp import settings
 from django.test import TestCase
 from django.test import Client
 from realqa.models import Question
-
+from realqa import views
+from django.test.client import RequestFactory #allows use of dummy requests
 
 
 #------------------------------------------------------- ----------------------------------------#
@@ -92,7 +93,19 @@ class Client_Test(TestCase):
 
 #----------------------------------------------------------------------------------------------------------#
 
-    #def test_createAccount(self):
+    def test_login(self):
+
+        #response = self.client.get('/realqa/login')
+
+        self.factory = RequestFactory()
+
+        request1 = self.factory.get('/realqa/login')
+
+        response = HttpResponseRedirect('/realqa/')
+
+        self.assertEquals(views.login(request1), response)
+
+
         
 
 #----------------------------------------------------------------------------------------------------------#
