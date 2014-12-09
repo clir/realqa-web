@@ -1,4 +1,4 @@
-import json, urllib, urllib2, base64
+import json, urllib, urllib2, base64, hashlib
 
 from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
@@ -209,6 +209,7 @@ def login(request):
 
         # get request data
         username = request.POST['username']
+        # password = hashlib.md5(request.POST['password']).hexdigest()
         password = request.POST['password']
 
         # seralize into JSON
@@ -294,7 +295,7 @@ def register(request):
     elif request.method == 'POST':
 
         username = request.POST['username']
-        password = request.POST['password']
+        password = hashlib.md5(request.POST['password']).hexdigest()
 
         data = {
             "username": username,
